@@ -21,8 +21,10 @@ export const register = async (req, res) => {
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', // CSRF protection
             maxAge: 7 * 24 * 60 * 60 * 1000,    //Cookie expiration time
         });
+        return res.json({ success: true, user: { name: user.name, email: user.email } });
     } catch (error) {
-
+        console.log(error.message);
+        res.json({ success: false, message: error.message });
     }
 
 }
