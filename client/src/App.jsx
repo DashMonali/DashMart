@@ -1,26 +1,27 @@
-import React from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { Toaster } from "react-hot-toast"
-import { useAppContext } from './context/AppContext'
+import React from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { useAppContext } from "./context/AppContext";
 
 // Components & Pages
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Login from './components/Login'
-import Home from './pages/Home'
-import AllProduct from './pages/AllProduct'
-import ProductCategory from './pages/ProductCategory'
-import ProductDetails from './pages/ProductDetails'
-import Cart from './pages/Cart'
-import AddAddress from './pages/AddAddress'
-import MyOrders from './pages/MyOrders'
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Login from "./components/Login";
+import Home from "./pages/Home";
+import AllProduct from "./pages/AllProduct";
+import ProductCategory from "./pages/ProductCategory";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+import AddAddress from "./pages/AddAddress";
+import MyOrders from "./pages/MyOrders";
+import Contact from "./pages/Contact";
 
 // Seller Pages
-import SellerLogin from './components/Seller/SellerLogin'
-import SellerLayout from './pages/seller/SellerLayout'
-import AddProduct from './pages/seller/AddProduct'
-import ProductList from './pages/seller/ProductList'
-import Orders from './pages/seller/Orders'
+import SellerLogin from "./components/Seller/SellerLogin";
+import SellerLayout from "./pages/seller/SellerLayout";
+import AddProduct from "./pages/seller/AddProduct";
+import ProductList from "./pages/seller/ProductList";
+import Orders from "./pages/seller/Orders";
 
 const App = () => {
   const location = useLocation();
@@ -33,7 +34,9 @@ const App = () => {
       {showUserLogin && <Login />}
       <Toaster />
 
-      <div className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+      <div
+        className={`${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}
+      >
         <Routes>
           {/* General Routes */}
           <Route path="/" element={<Home />} />
@@ -43,9 +46,13 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/add-address" element={<AddAddress />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* Seller Routes */}
-          <Route path="/seller" element={isSeller ? <SellerLayout /> : <SellerLogin />}>
+          <Route
+            path="/seller"
+            element={isSeller ? <SellerLayout /> : <SellerLogin />}
+          >
             {/* Nested routes inside SellerLayout */}
             {isSeller && (
               <>
@@ -61,6 +68,6 @@ const App = () => {
       {!isSellerPath && <Footer />}
     </div>
   );
-}
+};
 
 export default App;
