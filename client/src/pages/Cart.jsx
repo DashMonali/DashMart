@@ -52,12 +52,16 @@ const Cart = () => {
             date: new Date().toLocaleString(),
         };
 
+        // Save order to local storage
         localStorage.setItem("latestOrder", JSON.stringify(order));
 
-        // Clear the cart
+        // Show success message
+        alert("Order placed successfully!");
+
+        // Clear cart items
         cartArray.forEach((item) => removeFromCart(item._id));
 
-        // Redirect to confirmation page
+        // Redirect
         navigate("/order-success");
     };
 
