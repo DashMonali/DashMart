@@ -19,7 +19,9 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
-    console.log("Form submitted:", formData);
+    if (import.meta.env.DEV) {
+      console.log("Form submitted:", formData);
+    }
     // Reset form
     setFormData({
       name: "",

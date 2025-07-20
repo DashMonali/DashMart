@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext";
 
@@ -28,6 +28,13 @@ const App = () => {
   const isSellerPath = location.pathname.startsWith("/seller");
   const { showUserLogin, isSeller } = useAppContext();
 
+  // Debug logging
+  if (import.meta.env.DEV) {
+    console.log("Current path:", location.pathname);
+    console.log("Is seller path:", isSellerPath);
+    console.log("Is seller authenticated:", isSeller);
+  }
+
   return (
     <div className="text-default min-h-screen text-gray-700 bg-white">
       {!isSellerPath && <Navbar />}
@@ -53,15 +60,16 @@ const App = () => {
             path="/seller"
             element={isSeller ? <SellerLayout /> : <SellerLogin />}
           >
-            {/* Nested routes inside SellerLayout */}
-            {isSeller && (
-              <>
-                <Route index element={<AddProduct />} />
-                <Route path="product-list" element={<ProductList />} />
-                <Route path="orders" element={<Orders />} />
-              </>
-            )}
+            <Route index element={<AddProduct />} />
+            <Route path="product-list" element={<ProductList />} />
+            <Route path="orders" element={<Orders />} />
           </Route>
+
+          {/* Redirect old route to new route */}
+          <Route
+            path="/seller/products"
+            element={<Navigate to="/seller/product-list" replace />}
+          />
         </Routes>
       </div>
 

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
+import { authAPI } from "../services/api";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
@@ -15,9 +17,25 @@ const Navbar = () => {
     getCartCount,
   } = useAppContext();
 
-  const logout = () => {
-    setUser(null);
-    navigate("/");
+  const logout = async () => {
+    try {
+      // Call the logout API to clear the server-side session
+      await authAPI.logout();
+
+      // Clear local state
+      setUser(null);
+
+      // Navigate to home
+      navigate("/");
+
+      toast.success("Logged out successfully");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Even if the API call fails, clear local state
+      setUser(null);
+      navigate("/");
+      toast.success("Logged out successfully");
+    }
   };
 
   useEffect(() => {
