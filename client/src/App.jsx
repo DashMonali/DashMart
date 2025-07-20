@@ -23,6 +23,9 @@ import AddProduct from "./pages/seller/AddProduct";
 import ProductList from "./pages/seller/ProductList";
 import Orders from "./pages/seller/Orders";
 
+// Error Pages
+import NotFound from "./components/NotFound";
+
 const App = () => {
   const location = useLocation();
   const isSellerPath = location.pathname.startsWith("/seller");
@@ -70,6 +73,9 @@ const App = () => {
             path="/seller/products"
             element={<Navigate to="/seller/product-list" replace />}
           />
+
+          {/* Catch all route for 404 */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 
